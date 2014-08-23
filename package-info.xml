@@ -8,24 +8,33 @@
 
 	<install for="1.0 RC*">
 		<readme type="file" parsebbc="true">readme.txt</readme>
-		<database>install.php</database>
-		<require-file name="Sources/ReportOnGithubHooks.php" destination="$sourcedir">File to add hooks</require-file>
-		<require-file name="Sources/ReportOnGithub.php" destination="$sourcedir">Controller of user interface</require-file>
-		<require-file name="Sources/Subs-ReportOnGithub.php" destination="$sourcedir">Database handler</require-file>
+		<database type="file">install.php</database>
+		<require-file name="sources/ReportOnGithub.controller.php" destination="CONTROLLERDIR" />
+		<require-file name="sources/ReportOnGithub.subs.php" destination="SUBSDIR" />
+		<require-file name="sources/ReportOnGithub.integration.php" destination="SOURCEDIR" />
+		<require-file name="theme/ReportOnGithubHooks.english.php" destination="LANGUAGEDIR/english" />
+		<hook hook="integrate_general_mod_settings" file="SOURCEDIR/ReportOnGithub.integration.php" function="igm_bookmarks" />
+		<hook hook="integrate_load_permissions" file="SOURCEDIR/ReportOnGithub.integration.php" function="ilp_bookmarks" />
+		<hook hook="integrate_remove_topics" file="SOURCEDIR/ReportOnGithub.integration.php" function="irt_bookmarks" />
+		<hook hook="integrate_display_buttons" file="SOURCEDIR/ReportOnGithub.integration.php" function="idb_bookmarks" />
+		<hook hook="integrate_menu_buttons" file="SOURCEDIR/ReportOnGithub.integration.php" function="imb_bookmarks" />
 		<require-file name="Themes/default/languages/ReportOnGithub.english.php" destination="$languagedir">All language Strings</require-file>
 		<require-file name="Themes/default/scripts/ReportOnGithub.js" destination="$themedir/scripts">JS file of mod</require-file>
 		<modification>Modification.xml</modification>
-		<redirect url="?action=admin;area=liveclock" type="inline">Please stand by while you are being redirected to this modification's configuration settings.</redirect>
+		<redirect url="index.php?action=admin;area=addonsettings;sa=general" timeout="5000">redirect.txt</redirect>
 	</install>
 
 	<uninstall for="1.0 RC*">
-		<code>uninstall.php</code>
-		<remove-file name="$sourcedir/ReportOnGithubHooks.php" />
-		<remove-file name="$sourcedir/ReportOnGithub.php" />
-		<remove-file name="$sourcedir/Subs-ReportOnGithub.php" />
-		<remove-file name="$languagedir/ReportOnGithub.english.php" />
+		<hook reverse="true" hook="integrate_general_mod_settings" file="SOURCEDIR/ReportOnGithub.integration.php" function="igm_bookmarks" />
+		<hook reverse="true" hook="integrate_load_permissions" file="SOURCEDIR/ReportOnGithub.integration.php" function="ilp_bookmarks" />
+		<hook reverse="true" hook="integrate_remove_topics" file="SOURCEDIR/ReportOnGithub.integration.php" function="irt_bookmarks" />
+		<hook reverse="true" hook="integrate_display_buttons" file="SOURCEDIR/ReportOnGithub.integration.php" function="idb_bookmarks" />
+		<hook reverse="true" hook="integrate_menu_buttons" file="SOURCEDIR/ReportOnGithub.integration.php" function="imb_bookmarks" />
+		<remove-file name="CONTROLLERDIR/ReportOnGithub.controller.php" />
+		<remove-file name="SUBSDIR/ReportOnGithub.subs.php" />
+		<remove-file name="SOURCEDIR/ReportOnGithub.integration.php" />
+		<remove-file name="LANGUAGEDIR/english/ReportOnGithub.english.php" />
 		<remove-file name="$themedir/scripts/ReportOnGithub.js" />
-		<modification reverse="true">Modification.xml</modification>
 		<redirect url="$scripturl?action=admin;area=packages;sa=browse" timeout="1000" />		
 	</uninstall>
 </package-info>

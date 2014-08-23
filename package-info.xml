@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!DOCTYPE package-info SYSTEM "http://www.elkarte.net/site/package-info">
+<package-info xmlns="http://www.elkarte.net/site/package-info" xmlns:elk="http://www.elkarte.net/">
+	<id>sid2varun:reoprtongithub</id>
+	<name>Report Bugs on Github</name>
+	<version>1.0</version>
+	<type>modification</type>
+
+	<install for="1.0 RC*">
+		<readme type="file" parsebbc="true">readme.txt</readme>
+		<database>install.php</database>
+		<require-file name="Sources/ReportOnGithubHooks.php" destination="$sourcedir">File to add hooks</require-file>
+		<require-file name="Sources/ReportOnGithub.php" destination="$sourcedir">Controller of user interface</require-file>
+		<require-file name="Sources/Subs-ReportOnGithub.php" destination="$sourcedir">Database handler</require-file>
+		<require-file name="Themes/default/languages/ReportOnGithub.english.php" destination="$languagedir">All language Strings</require-file>
+		<require-file name="Themes/default/scripts/ReportOnGithub.js" destination="$themedir/scripts">JS file of mod</require-file>
+		<modification>Modification.xml</modification>
+		<redirect url="?action=admin;area=liveclock" type="inline">Please stand by while you are being redirected to this modification's configuration settings.</redirect>
+	</install>
+
+	<uninstall for="1.0 RC*">
+		<code>uninstall.php</code>
+		<remove-file name="$sourcedir/ReportOnGithubHooks.php" />
+		<remove-file name="$sourcedir/ReportOnGithub.php" />
+		<remove-file name="$sourcedir/Subs-ReportOnGithub.php" />
+		<remove-file name="$languagedir/ReportOnGithub.english.php" />
+		<remove-file name="$themedir/scripts/ReportOnGithub.js" />
+		<modification reverse="true">Modification.xml</modification>
+		<redirect url="$scripturl?action=admin;area=packages;sa=browse" timeout="1000" />		
+	</uninstall>
+</package-info>
